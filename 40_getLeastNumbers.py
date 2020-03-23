@@ -18,7 +18,7 @@ class Solution:
             self.selected(arr, pos + 1, right, k - num)
 
     def partition(self, arr: List[int], left: int, right: int):
-        pivot_index = left
+        pivot_index = left  
         val = arr[pivot_index]
         i = left + 1
 
