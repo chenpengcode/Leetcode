@@ -8,10 +8,7 @@ class ListNode:
 class Solution:
     def middleNode(self, head: ListNode) -> ListNode:
         i = j = head
-        while j.next and j.next.next:
+        while j and j.next:
             i = i.next
             j = j.next.next
-
-        if j.next:
-            return i.next.val
-        return i.val
+        return i
