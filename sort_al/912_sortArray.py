@@ -1,30 +1,103 @@
 from typing import List
 
 
-class Solution:
-    def sortArray(self, nums: List[int]) -> List[int]:
-        self.quick_sort(nums, 0, len(nums) - 1)
-        return nums
-
-    def quick_sort(self, nums: List[int], left: int, right: int):
-        if right <= left:
+class SortAlg:
+    def quick_sort(self, nums, left, right):
+        if left >= right:
             return
-        mid = self.partion(nums, left, right)
+        mid = self.partition(nums, left, right)
         self.quick_sort(nums, left, mid - 1)
         self.quick_sort(nums, mid + 1, right)
 
-    def partion(self, nums: List[int], left: int, right: int) -> int:
-        povit = nums[right]
-        povit_index = left - 1
+    def partition(self, nums, left, right):
+        pivot = nums[right]
+        pivot_index = left - 1
 
         for i in range(left, right):
-            if nums[i] < povit:
-                povit_index += 1
-                nums[i], nums[povit_index] = nums[povit_index], nums[i]
-        povit_index += 1
-        nums[povit_index], nums[right] = nums[right], nums[povit_index]
+            if nums[i] < pivot:
+                pivot_index += 1
+                nums[i], nums[pivot_index] = nums[pivot_index], nums[i]
 
-        return povit_index
+        pivot_index += 1
+        nums[right], nums[pivot_index] = nums[pivot_index], nums[right]
+        return pivot_index
+
+    def heap_sort(self, nums):
+        self.build_heap(nums)
+        for i in range(len(nums) - 1, -1, -1):
+            nums[0], nums[i] = nums[i], nums[0]
+            self.max_heapify(nums, 0, i)
+
+    def build_heap(self, nums):
+        for i in range(len(nums) - 1, -1, -1):
+            self.max_heapify(nums, i, len(nums))
+
+    def max_heapify(self, nums, root, nums_len):
+        p = root
+        while p * 2 + 1 < nums_len:
+            left, right = p * 2 + 1, p * 2 + 2
+
+            if nums_len < right or nums[right] < nums[left]:
+                nex = left
+            else:
+                nex = right
+
+            if nums[p] < nums[nex]:
+                nums[p], nums[nex] = nums[nex], nums[p]
+                p = nex
+            else:
+                break
+
+    def merge_sort(self, nums, left, right):
+        if left >= right:
+            return
+        mid = left + (right - left) // 2
+        self.merge_sort(nums, left, mid)
+        self.merge_sort(nums, mid + 1, right)
+        if nums[mid] > nums[mid + 1]:
+            self.merge(nums, left, mid, right)
+
+    def merge_sort_2(self, nums):
+        n = 1
+        while n < len(nums) * 2:
+            left = 0
+            right = left + n - 1
+            mid = left + (right - left) // 2
+
+            while right < len(nums):
+                self.merge(nums, left, mid, right)
+                left = right + 1
+                right = left + n - 1
+                mid = left + (right - left) // 2
+
+            if mid < len(nums):
+                self.merge(nums, left, mid, len(nums) - 1)
+            n += n
+
+    def merge(self, nums, left, mid, right):
+        tmp = []
+        i, j = left, mid + 1
+        while i <= mid and j <= right:
+            if nums[i] < nums[j]:
+                tmp.append(nums[i])
+                i += 1
+            else:
+                tmp.append(nums[j])
+                j += 1
+        while i <= mid:
+            tmp.append(nums[i])
+            i += 1
+        while j <= right:
+            tmp.append(nums[j])
+            j += 1
+        nums[left: right + 1] = tmp
+
+
+class Solution:
+    def sortArray(self, nums: List[int]) -> List[int]:
+        ins = SortAlg()
+        ins.merge_sort_2(nums)
+        return nums
 
 
 if __name__ == '__main__':
