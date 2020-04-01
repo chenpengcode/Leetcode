@@ -32,18 +32,18 @@ class SortAlg:
         for i in range(len(nums) - 1, -1, -1):
             self.max_heapify(nums, i, len(nums))
 
-    def max_heapify(self, nums, root, nums_len):
+    def max_heapify(self, heap, root, heap_len):
         p = root
-        while p * 2 + 1 < nums_len:
+        while p * 2 + 1 < heap_len:
             left, right = p * 2 + 1, p * 2 + 2
 
-            if nums_len < right or nums[right] < nums[left]:
+            if right >= heap_len or heap[right] < heap[left]:
                 nex = left
             else:
                 nex = right
 
-            if nums[p] < nums[nex]:
-                nums[p], nums[nex] = nums[nex], nums[p]
+            if heap[p] < heap[nex]:
+                heap[p], heap[nex] = heap[nex], heap[p]
                 p = nex
             else:
                 break
@@ -96,7 +96,7 @@ class SortAlg:
 class Solution:
     def sortArray(self, nums: List[int]) -> List[int]:
         ins = SortAlg()
-        ins.merge_sort_2(nums)
+        ins.heap_sort(nums)
         return nums
 
 
