@@ -14,7 +14,6 @@ class Solution:
         return L == R and U == D
 
 
-
 if __name__ == '__main__':
     moves = "DL"
     test = Solution()
