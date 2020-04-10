@@ -30,7 +30,6 @@ class Solution:
         return ' '.join(d)
 
 
-
 if __name__ == '__main__':
     s = "a good   example "
     test = Solution()
