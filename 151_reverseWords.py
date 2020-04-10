@@ -20,7 +20,7 @@ class Solution:
         d, word = collections.deque(), []
         while left <= right:
             if s[left] == ' ' and word:
-                d.append(''.join(word))
+                d.appendleft(''.join(word))
                 word = []
             elif s[left] != ' ':
                 word.append(s[left])
