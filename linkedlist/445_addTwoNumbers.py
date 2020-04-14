@@ -4,6 +4,7 @@ class ListNode:
         self.val = x
         self.next = None
 
+
 class Solution:
     def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
         s1, s2 = [], []
@@ -25,5 +26,3 @@ class Solution:
             curnode.next = ans
             ans = curnode
         return ans
-
-
