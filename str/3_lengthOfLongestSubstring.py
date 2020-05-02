@@ -13,7 +13,20 @@ class Solution:
         return ans
 
     def lengthOfLongestSubstring_2(self, s: str) -> int:
-        pass
+        tmp = set()
+        n = len(s)
+
+        right_k, ans = -1, 0
+
+        for i in range(n):
+            if i > 0:
+                tmp.remove(s[i - 1])
+            while right_k + 1 < n and s[right_k + 1] not in tmp:
+                right_k += 1
+                tmp.add(s[right_k])
+            ans = max(ans, right_k - i + 1)
+
+        return ans
 
 
 if __name__ == '__main__':
