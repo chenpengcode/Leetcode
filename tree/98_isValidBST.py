@@ -19,3 +19,19 @@ class Solution:
             return helper(node.right, val, upper) and helper(node.left, lower, val)
 
         return helper(root)
+
+    def isValidBST_2(self, root: TreeNode) -> bool:
+        stack, inorder = [], float('-inf')
+
+        while stack or root:
+            while root:
+                stack.append(root)
+                root = root.left
+
+            root = stack.pop()
+            if root.val <= inorder:
+                return False
+
+            inorder = root.val
+            root = root.right
+        return True
