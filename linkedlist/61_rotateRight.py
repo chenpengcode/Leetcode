@@ -4,6 +4,7 @@ class ListNode:
         self.val = x
         self.next = None
 
+
 class Solution:
     def rotateRight(self, head: ListNode, k: int) -> ListNode:
         if not head or not head.next:
