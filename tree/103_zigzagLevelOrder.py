@@ -34,37 +34,31 @@ class Solution:
         return ans
 
     def zigzag_level_order_bfs(self, root: TreeNode) -> List[List[int]]:
-        ret = []
-        level_list = deque()
-        if root is None:
+        if not root:
             return []
-        # start with the level 0 with a delimiter
-        node_queue = deque([root, None])
-        is_order_left = True
+        ans = []
+        is_left = True
+        level = deque()
+        queue = deque([root, None])
 
-        while len(node_queue) > 0:
-            curr_node = node_queue.popleft()
-
-            if curr_node:
-                if is_order_left:
-                    level_list.append(curr_node.val)
+        while queue:
+            node = queue.popleft()
+            if node:
+                if is_left:
+                    level.append(node.val)
                 else:
-                    level_list.appendleft(curr_node.val)
-
-                if curr_node.left:
-                    node_queue.append(curr_node.left)
-                if curr_node.right:
-                    node_queue.append(curr_node.right)
+                    level.appendleft(node.val)
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
             else:
-                # we finish one level
-                ret.append(level_list)
-                # add a delimiter to mark the level
-                if len(node_queue) > 0:
-                    node_queue.append(None)
+                ans.append(list(level))
 
-                # prepare for the next level
-                level_list = deque()
-                is_order_left = not is_order_left
+                if queue:
+                    queue.append(None)
+                level = deque()
+                is_left = not is_left
 
-        return ret
+        return ans
 
