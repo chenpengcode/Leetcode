@@ -1,3 +1,6 @@
+import collections
+
+
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
         if not s:
@@ -26,6 +29,21 @@ class Solution:
                 tmp.add(s[right_k])
             ans = max(ans, right_k - i + 1)
 
+        return ans
+
+    def lengthOfLongestSubstring_3(self, s: str) -> int:
+        left = right = 0
+        ans = 0
+        window = collections.defaultdict(int)
+        while right < len(s):
+            # 增加right，使窗口内容符合要求
+            window[s[right]] += 1
+            # 出现次数大于1，即为窗口不符合要求，此时移动left，缩小窗口
+            while window[s[right]] > 1:
+                window[s[left]] -= 1
+                left += 1
+            right += 1
+            ans = max(ans, right - left)
         return ans
 
 
