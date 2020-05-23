@@ -1,5 +1,5 @@
 class Solution:
-    def lengthOfLongestSubstring(self, s: str) -> int:
+    def lengthOfLongestSubstring_brute(self, s: str) -> int:
         if not s:
             return 0
 
@@ -16,20 +16,20 @@ class Solution:
         tmp = set()
         n = len(s)
 
-        right_k, ans = -1, 0
+        right, ans = -1, 0
 
-        for i in range(n):
-            if i > 0:
-                tmp.remove(s[i - 1])
-            while right_k + 1 < n and s[right_k + 1] not in tmp:
-                right_k += 1
-                tmp.add(s[right_k])
-            ans = max(ans, right_k - i + 1)
+        for left in range(n):
+            if left > 0:
+                tmp.remove(s[left - 1])
+            while right + 1 < n and s[right + 1] not in tmp:
+                right += 1
+                tmp.add(s[right])
+            ans = max(ans, right - left + 1)
 
         return ans
 
 
 if __name__ == '__main__':
-    s = "abcabcbb"
+    s = "abcaabb"
     test = Solution()
     print(test.lengthOfLongestSubstring_2(s))
