@@ -5,8 +5,10 @@ pre_sum[i] = A[0] + A[1] + A[2] + ... + A[i]
 A[i] = pre_sum[i] - (A[0] + A[1] + A[2] + ... + A[i - 1]) = pre_sum[i] - pre_sum[i - 1]
 A[i] + A[i + 1] + A[i + 2] + ... + A[j] = pre_sum[j] - pre_sum[i - 1]
 同余定理：
-(pre_sum[j] - pre_sum[i]) % K = 0 ----> pre_sum[i] % K - pre_sum[j] % K = 0 ----> pre_sum[i] % K = pre_sum[j] % K
-元素之和可被 K 整除的（连续、非空）子数组的数目
+(pre_sum[j] - pre_sum[i]) % K = 0 
+----> pre_sum[i] % K - pre_sum[j] % K = 0
+----> pre_sum[i] % K = pre_sum[j] % K
+前缀和模K相同的元素子数组之和
 =====>
 前缀和模K相等的子数组的数目
 =====>
@@ -43,6 +45,7 @@ class Solution:
             same = record.get(modulus, 0)
             ans += same
             record[modulus] = same + 1
+
         return ans
 
     def subarraysDivByK_presum(self, A: List[int], K: int) -> int:
