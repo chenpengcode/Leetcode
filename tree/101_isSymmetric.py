@@ -17,7 +17,7 @@ class Solution:
             return False
         return (root_1.val == root_2.val) and self.is_mirror(root_1.left, root_2.right) and self.is_mirror(root_1.right, root_2.left)
 
-    def isSymmetric(self, root: TreeNode) -> bool:
+    def isSymmetric_iter(self, root: TreeNode) -> bool:
         queue = [root, root]
         while queue:
             t1 = queue.pop()
