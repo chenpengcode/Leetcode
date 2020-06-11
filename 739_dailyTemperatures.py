@@ -8,23 +8,28 @@ class Solution:
 
         for i in range(n):
             cnt = 0
-            for j in range(i + 1, n - 1):
+            for j in range(i + 1, n):
                 cnt += 1
                 if T[j] > T[i]:
                     break
+                if j == n - 1 and cnt != 0:
+                    cnt = 0
             ans[i] = cnt
 
         return ans
 
     def dailyTemperatures_2(self, T: List[int]) -> List[int]:
-        length = len(T)
-        ans = [0] * length
+        n = len(T)
+
+        ans = [0] * n
         stack = []
-        for i in range(length):
-            temperature = T[i]
-            while stack and temperature > T[stack[-1]]:
-                prev_index = stack.pop()
-                ans[prev_index] = i - prev_index
+
+        for i in range(n):
+            t = T[i]
+
+            while stack and t > T[stack[-1]]:
+                pre_index = stack.pop()
+                ans[pre_index] = i - pre_index
             stack.append(i)
         return ans
 
@@ -32,4 +37,4 @@ class Solution:
 if __name__ == '__main__':
     T = [73, 74, 75, 71, 69, 72, 76, 73]
     solution = Solution()
-    print(solution.dailyTemperatures_2(T))
+    print(solution.dailyTemperatures(T))
