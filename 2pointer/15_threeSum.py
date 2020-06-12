@@ -31,6 +31,8 @@ class Solution:
 
         ans = []
         for i in range(length):
+            if nums[i] > 0:
+                return ans
             if i > 0 and nums[i - 1] == nums[i]:
                 continue
             right = length - 1
@@ -50,9 +52,12 @@ class Solution:
     def threeSum_2p(self, nums: List[int]) -> List[List[int]]:
         nums.sort()
         length = len(nums)
-
+        if length < 3:
+            return []
         ans = []
         for i in range(length):
+            if nums[i] > 0:
+                return ans
             if i > 0 and nums[i - 1] == nums[i]:
                 continue
             target = -nums[i]
