@@ -27,27 +27,26 @@ class Solution:
         for num in arr:
             pre_sum.append(pre_sum[-1] + num)
 
-        value_lower, value_upper = 0, 0
-        left, right = 0, arr[-1]
-        while left <= right:
-            mid = left + (right - left) // 2
+        value = 0
+        left, right = 0, arr[-1] + 1
+        while left < right:
+            mid = (left + right) >> 1
             it = self.binary_search(arr, mid)
             cur_sum = pre_sum[it] + (n - it) * mid
             if cur_sum < target:
+                value = mid
                 left = mid + 1
-                value_lower = mid
             else:
-                right = mid - 1
-                value_upper = mid
+                right = mid
 
         def check(x):
             return sum(x if num > x else num for num in arr)
 
-        choose_lower = check(value_lower)
-        choose_upper = check(value_upper)
+        choose_lower = check(value)
+        choose_upper = check(value + 1)
 
-        return value_lower if abs(choose_lower - target) <= abs(
-            choose_upper - target) else value_upper
+        return value if abs(choose_lower - target) <= abs(
+            choose_upper - target) else value + 1
 
     def binary_search(self, arr, x):
         left, right = 0, len(arr)
