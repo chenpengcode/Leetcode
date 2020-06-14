@@ -7,6 +7,8 @@ class Solution:
             return [-1, -1]
 
         left, right = 0, len(nums)
+        # 如果target在列表中，返回其最左边的索引
+        # 如果target不在列表中，返回其插入之后的位置
         while left < right:
             mid = left + ((right - left) >> 1)
             if target > nums[mid]:
@@ -16,6 +18,8 @@ class Solution:
         start = left if left < len(nums) and nums[left] == target else -1
 
         left, right = 0, len(nums)
+        # 如果target在列表中，返回其最右边的索引
+        # 如果target不在列表中，返回其插入之后的位置
         while left < right:
             mid = left + ((right - left) >> 1)
             if target < nums[mid]:
