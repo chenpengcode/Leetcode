@@ -25,11 +25,11 @@ class Solution:
         if root.right:
             self.helper(root.right, level + 1)
 
-    def levelOrder(self, root: TreeNode) -> List[List[int]]:
+    def levelOrder_dfs(self, root: TreeNode) -> List[List[int]]:
         self.helper(root, 0)
         return self.ans
 
-    def levelOrder_iter(self, root: TreeNode) -> List[List[int]]:
+    def levelOrder_bfs(self, root: TreeNode) -> List[List[int]]:
         if not root:
             return []
         ans = []
