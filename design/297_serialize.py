@@ -9,7 +9,54 @@ class TreeNode(object):
         self.right = None
 
 
-class Codec:
+class Codec_bfs:
+
+    def serialize(self, root):
+        """Encodes a tree to a single string.
+
+        :type root: TreeNode
+        :rtype: str
+        """
+        ans = []
+        q = collections.deque()
+        q.append(root)
+        while q:
+            node = q.popleft()
+            if node:
+                ans.append(str(node.val))
+                q.append(node.left)
+                q.append(node.right)
+            else:
+                ans.append("None")
+        return ",".join(ans)
+
+    def deserialize(self, data):
+        """Decodes your encoded data to tree.
+
+        :type data: str
+        :rtype: TreeNode
+        """
+        nodes_val = data.split(',')
+        root_val = nodes_val[0]
+        if root_val == "None":
+            return None
+        root = TreeNode(int(root_val))
+        q = collections.deque([root])
+        index = 0
+        while q:
+            node = q.popleft()
+            index += 1
+            if nodes_val[index] != "None":
+                node.left = TreeNode(int(nodes_val[index]))
+                q.append(node.left)
+            index += 1
+            if nodes_val[index] != "None":
+                node.right = TreeNode(int(nodes_val[index]))
+                q.append(node.right)
+        return root
+
+
+class Codec_dfs:
 
     def serialize(self, root):
         """Encodes a tree to a single string.
