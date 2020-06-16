@@ -18,9 +18,6 @@ class Solution:
         return sell[-1]
 
     def maxProfit_2(self, prices: List[int]) -> int:
-        if not prices:
-            return 0
-
         n = len(prices)
         if n < 2:
             return 0
