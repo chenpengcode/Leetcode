@@ -15,6 +15,8 @@ class Solution:
         return dp[len(prices) - 1][0]
 
     def maxProfit_better(self, prices: List[int]) -> int:
+        if not prices:
+            return 0
         n = len(prices)
         sell = 0
         buy = -prices[0]
