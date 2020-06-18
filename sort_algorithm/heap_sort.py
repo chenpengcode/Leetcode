@@ -16,7 +16,7 @@ def heap_sort(nums: List[int]):
 
 
 def build_heap(nums: List[int]):
-    # 从第一个非叶子节点，最大值为 (len(nums) - 2) // 2
+    # 从第一个非叶子节点
     for i in reversed(range(len(nums))):
         heapify(nums, i, len(nums))
 
