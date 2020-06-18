@@ -11,16 +11,26 @@ def quick_sort(nums: List[int], left, right):
 
 
 def partition(nums, left, right):
-    pivot = nums[right]
-    index = left - 1
+    # pivot = nums[right]
+    # index = left - 1
+    #
+    # for i in range(left, right):
+    #     if nums[i] < pivot:
+    #         index += 1
+    #         nums[i], nums[index] = nums[index], nums[i]
+    # index += 1
+    # nums[index], nums[right] = nums[right], nums[index]
+    # return index
 
-    for i in range(left, right):
-        if nums[i] < pivot:
-            index += 1
-            nums[i], nums[index] = nums[index], nums[i]
-    index += 1
-    nums[index], nums[right] = nums[right], nums[index]
-    return index
+    pivot_index = left
+    pivot_elem = nums[pivot_index]
+
+    for i in range(left + 1, right + 1):
+        if nums[i] < pivot_elem:
+            pivot_index += 1
+            nums[pivot_index], nums[i] = nums[i], nums[pivot_index]
+    nums[left], nums[pivot_index] = nums[pivot_index], nums[left]
+    return pivot_index
 
 
 if __name__ == '__main__':
