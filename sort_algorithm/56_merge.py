@@ -10,7 +10,7 @@ class Solution:
             if not ans or interval[0] > ans[-1][1]:
                 ans.append(interval)
             else:
-                ans[-1][1] = min(interval[1], ans[-1][1])
+                ans[-1][1] = max(interval[1], ans[-1][1])
 
         return ans
 
