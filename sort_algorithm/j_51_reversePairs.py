@@ -90,4 +90,4 @@ class Solution:
 if __name__ == '__main__':
     nums = [7, 5, 6, 4]
     test = Solution()
-    print(test.reversePairs_3(nums))
+    print(test.reversePairs_2(nums))
