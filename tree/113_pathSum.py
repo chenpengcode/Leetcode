@@ -13,30 +13,37 @@ class Solution:
     def pathSum(self, root: TreeNode, total: int) -> List[List[int]]:
         if not root:
             return []
+
         ans = []
-        stack = [([root.val], root)]
+        stack = [(root, [root.val])]
         while stack:
-            path, node = stack.pop()
-            if not node.left and not node.right and sum(path) == total:
-                ans.append(path)
+            node, tmp = stack.pop()
+            if not node.left and not node.right and sum(tmp) == total:
+                print(tmp)
+                ans.append(tmp[:])
             if node.right:
-                stack.append((path + [node.right.val], node.right))
+                stack.append((node.right, tmp + [node.right.val]))
             if node.left:
-                stack.append((path + [node.left.val], node.left))
+                stack.append((node.left, tmp + [node.left.val]))
         return ans
 
     def pathSum_dfs(self, root: TreeNode, total: int) -> List[List[int]]:
-        def dfs(root, tmp, total):
+        ans = []
+        tmp = []
+
+        def helper(root, total):
             if not root:
                 return
-            if not root.left and not root.right and root.val == total:
-                tmp += [root.val]
-                ans.append(tmp)
-            dfs(root.left, tmp + [root.val], total - root.val)
-            dfs(root.right, tmp + [root.val], total - root.val)
+            tmp.append(root.val)
+            # print(tmp)
+            if not root.left and not root.right and sum(tmp) == total:
+                # print(tmp)
+                ans.append(tmp[:])
+            helper(root.left, total)
+            helper(root.right, total)
+            tmp.pop()
 
-        ans = []
-        dfs(root, [], total)
+        helper(root, total)
         return ans
 
 
