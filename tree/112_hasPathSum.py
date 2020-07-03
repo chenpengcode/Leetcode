@@ -11,16 +11,17 @@ class Solution:
         if not root:
             return False
 
-        stack = [(root, sum - root.val)]
+        stack = [(root, 0)]
         while stack:
-            node, sum = stack.pop()
-            if not node.left and not node.right and sum == 0:
+            node, total = stack.pop()
+            total += node.val
+            if not node.left and not node.right and total == sum:
                 return True
 
-            if node.right:
-                stack.append((node.right, sum - node.right.val))
             if node.left:
-                stack.append((node.left, sum - node.left.val))
+                stack.append((node.left, total))
+            if node.right:
+                stack.append((node.right, total))
         return False
 
     def hasPathSum(self, root: TreeNode, sum: int) -> bool:
