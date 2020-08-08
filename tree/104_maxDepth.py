@@ -13,16 +13,16 @@ class Solution:
         return max(self.maxDepth(root.left), self.maxDepth(root.right)) + 1
 
     def maxDepth(self, root: TreeNode) -> int:
-        stack = []
-        if root:
-            stack.append((1, root))
+        if not root:
+            return 0
 
+        stack = [(1, root)]
         depth = 0
         while stack:
-            cur_depth, root = stack.pop()
-            if not root:
-                depth = max(depth, cur_depth)
-                stack.append((cur_depth + 1, root.left))
-                stack.append((cur_depth + 1, root.right))
-
+            cur_depth, node = stack.pop()
+            # print(len(stack))
+            if node:
+                depth = max(cur_depth, depth)
+                stack.append((cur_depth + 1, node.left))
+                stack.append((cur_depth + 1, node.right))
         return depth
