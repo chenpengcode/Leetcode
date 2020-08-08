@@ -1,4 +1,5 @@
 # Definition for a binary tree node.
+import collections
 from collections import deque
 
 
@@ -40,4 +41,20 @@ class Solution:
                 deq.append((p.left, q.left))
                 deq.append((p.right, q.right))
 
+        return True
+
+    def isSameTree_iter2(self, p: TreeNode, q: TreeNode) -> bool:
+        deq = collections.deque()
+        deq.append((p, q))
+
+        while deq:
+            t1, t2 = deq.popleft()
+            if not t1 and not t2:
+                continue
+            if not t1 or not t2:
+                return False
+            if t1.val != t2.val:
+                return False
+            deq.append((t1.left, t2.left))
+            deq.append((t1.right, t2.right))
         return True
