@@ -1,4 +1,7 @@
 # Definition for a binary tree node.
+import collections
+
+
 class TreeNode:
     def __init__(self, x):
         self.val = x
@@ -18,20 +21,18 @@ class Solution:
         return (root_1.val == root_2.val) and self.is_mirror(root_1.left, root_2.right) and self.is_mirror(root_1.right, root_2.left)
 
     def isSymmetric_iter(self, root: TreeNode) -> bool:
-        queue = [root, root]
-        while queue:
-            t1 = queue.pop()
-            t2 = queue.pop()
-            if not t1 and not t2:
-                return True
-            if not t1 or not t2:
-                return False
-            if t1.val != t2.val:
-                return False
-            queue.append(t1.left)
-            queue.append(t2.right)
-            queue.append(t1.right)
-            queue.append(t2.left)
+        deq = collections.deque()
+        deq.append((root, root))
 
+        while deq:
+            node1, node2 = deq.popleft()
+            if not node1 and not node2:
+                continue
+            if not node1 or not node2:
+                return False
+            if node1.val != node2.val:
+                return False
+            deq.append((node1.left, node2.right))
+            deq.append((node1.right, node2.left))
         return True
 
