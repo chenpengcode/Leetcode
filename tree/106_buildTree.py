@@ -11,6 +11,11 @@ class TreeNode:
 
 class Solution:
     def buildTree(self, inorder: List[int], postorder: List[int]) -> TreeNode:
+        """
+
+        :rtype: TreeNode
+        """
+
         def build(in_left, in_right, post_left, post_right):
             if post_left > post_right:
                 return None
@@ -27,3 +32,26 @@ class Solution:
         n = len(inorder)
         index = {ele: i for i, ele in enumerate(inorder)}
         return build(0, n - 1, 0, n - 1)
+
+    def buildTree_recu(self, inorder: List[int], postorder: List[int]) -> TreeNode:
+        def build(in_left, in_right):
+            if in_left > in_right:
+                return None
+            val = postorder.pop()
+            root = TreeNode(val)
+            index = idx_map[val]
+
+            root.right = build(index + 1, in_right)
+            root.left = build(in_left, index - 1)
+
+            return root
+
+        idx_map = {val: idx for idx, val in enumerate(inorder)}
+        return build(0, len(inorder) - 1)
+
+
+if __name__ == '__main__':
+    inorder = [9, 3, 15, 20, 7]
+    postorder = [9, 15, 7, 20, 3]
+    solution = Solution()
+    solution.buildTree_recu(inorder, postorder)
