@@ -46,6 +46,20 @@ class Solution:
         helper(root, total)
         return ans
 
+    def pathSum_dfs_2(self, root: TreeNode, total: int) -> List[List[int]]:
+        def dfs(root, tmp, total):
+            if not root:
+                return
+            if not root.left and not root.right and root.val == total:
+                tmp += [root.val]
+                ans.append(tmp)
+            dfs(root.left, tmp + [root.val], total - root.val)
+            dfs(root.right, tmp + [root.val], total - root.val)
+
+        ans = []
+        dfs(root, [], total)
+        return ans
+
 
 if __name__ == '__main__':
     lst = [1, 2, 3]
