@@ -10,6 +10,37 @@ class TreeNode:
 
 
 class Solution:
+    # 后序遍历递归实现
+    def postorderTraversal_rec(self, root: TreeNode) -> List[int]:
+        def dfs(root):
+            if not root:
+                return
+            dfs(root.left)
+            dfs(root.right)
+            ans.append(root.val)
+
+        ans = []
+        dfs(root)
+        return ans
+
+    # 后序遍历迭代实现
+    def postorder_traversal_iter(self, root: TreeNode) -> List[int]:
+        stack, ans = [], []
+
+        while stack or root:
+            while root:
+                stack.append(root)
+                root = root.left if root.left else root.right
+
+            root = stack.pop()
+            ans.append(root.val)
+            if stack and stack[-1].left == root:
+                root = stack[-1].right
+            else:
+                root = None
+
+        return ans
+
     def postorderTraversal(self, root: TreeNode) -> List[int]:
         ans = []
         self.helper(root, ans)
@@ -26,16 +57,16 @@ class Solution:
     def postorderTraversal_iter(self, root: TreeNode) -> List[int]:
         if not root:
             return []
+
         ans, stack = [], []
         stack.append(root)
         while stack:
-            if root:
-                node = stack.pop()
-                ans.append(node.val)
-                if node.left:
-                    stack.append(node.left)
-                if node.right:
-                    stack.append(node.right)
+            node = stack.pop()
+            ans.append(node.val)
+            if node.left:
+                stack.append(node.left)
+            if node.right:
+                stack.append(node.right)
 
         return ans[::-1]
 
