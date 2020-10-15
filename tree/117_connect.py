@@ -14,7 +14,7 @@ class Node:
 class Solution:
     def connect(self, root: 'Node') -> 'Node':
         if not root:
-            return
+            return root
 
         q = collections.deque()
         q.append(root)
@@ -32,4 +32,31 @@ class Solution:
                 if i != 0:
                     last.next = node
                 last = node
+        return root
+
+    def connect_o1(self, root: 'Node') -> 'Node':
+        if not root:
+            return root
+
+        leftmost = root
+        while leftmost.left:
+            head = leftmost
+
+            while head:
+                head.left.next = head.right
+                if head.next:
+                    head.right.next = head.next.left
+                head = head.next
+            leftmost = leftmost.left
+
+        return root
+
+    def connect_rec(self, root: 'Node') -> 'Node':
+        if not root:
+            return root
+        root.left.next = root.right
+        if root.next:
+            root.right.next = root.next.left
+        self.connect_rec(root.left)
+        self.connect_rec(root.right)
         return root
