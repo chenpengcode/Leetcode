@@ -39,24 +39,18 @@ class Solution:
             return root
 
         leftmost = root
-        while leftmost.left:
-            head = leftmost
+        while leftmost:
+            head = tail = Node()
+            cur = leftmost
 
-            while head:
-                head.left.next = head.right
-                if head.next:
-                    head.right.next = head.next.left
-                head = head.next
-            leftmost = leftmost.left
-
+            while cur:
+                if cur.left:
+                    tail.next = cur.left
+                    tail = tail.next
+                if cur.right:
+                    tail.next = cur.right
+                    tail = tail.next
+                cur = cur.next
+            leftmost = head.next
         return root
 
-    def connect_rec(self, root: 'Node') -> 'Node':
-        if not root:
-            return root
-        root.left.next = root.right
-        if root.next:
-            root.right.next = root.next.left
-        self.connect_rec(root.left)
-        self.connect_rec(root.right)
-        return root
