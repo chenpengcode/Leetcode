@@ -11,14 +11,16 @@ class Solution:
     def sumNumbers(self, root: TreeNode) -> int:
         def dfs(root, value):
             if not root:
-                return value
+                return 0
             value = value * 10 + root.val
             if not root.left and not root.right:
                 return value
-            if root.left and not root.right:
-                return dfs(root.left, value)
-            if not root.left and root.right:
-                return dfs(root.right, value)
+            # if root.left and not root.right:
+            #     return dfs(root.left, value)
+            # if not root.left and root.right:
+            #     return dfs(root.right, value)
             return dfs(root.left, value) + dfs(root.right, value)
+
+        return dfs(root, 0)
 
         return dfs(root, 0)
