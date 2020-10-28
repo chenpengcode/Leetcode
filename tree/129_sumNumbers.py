@@ -22,5 +22,3 @@ class Solution:
             return dfs(root.left, value) + dfs(root.right, value)
 
         return dfs(root, 0)
-
-        return dfs(root, 0)
